@@ -1,14 +1,19 @@
 # flutter_animated_play_button
 
-A new Flutter package.
+AnimatedPlayButton is a Flutter widget presenting several animating bars, which
+represent we are playing an item such as a track or a playlist.
 
-## Getting Started
+To use the widget, just creates an instance of it and place it into your Widget
+tree. You can specify its `child` or `color` as well.
 
-This project is a starting point for a Dart
-[package](https://flutter.io/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## Installation
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Add the following line to your `pubspec.yaml` file of your Flutter project:
+
+```yaml
+dependencies:
+  flutter_animated_play_button:
+    git: "git@gitlab.kkinternal.com:xddd/flutter_animated_play_button.git"
+```
+
+Then call flutter packages get.

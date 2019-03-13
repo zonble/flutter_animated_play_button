@@ -1,46 +1,28 @@
 library flutter_animated_play_button;
 
+/// Wraps [AnimatedPlayButton].
+
 import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class _Painter extends CustomPainter {
-  final List<double> values;
-  final Color color;
-
-  _Painter({@required this.values, this.color = Colors.black});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (this.values == null || this.values.length == 0) {
-      return;
-    }
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    final double interval = size.width / (values.length + 1);
-    for (int index = 0; index < this.values.length; index++) {
-      final value = values[index];
-      final x = interval * (index + 1);
-      final yBegin = size.height;
-      final yEnd = size.height - (size.height * value);
-      canvas.drawLine(Offset(x, yBegin), Offset(x, yEnd), paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
+/// AnimatedPlayButton is a Flutter widget presenting several animating bars,
+/// which represent we are playing an item such as a track or a playlist.
+///
+/// To use the widget, just creates an instance of it and place it into your
+/// Widget tree. You can specify its [child] or [color] as well.
 class AnimatedPlayButton extends StatefulWidget {
+  /// Handles tap events on the button.
   final VoidCallback onPressed;
+
+  /// Child of the button.
   final Widget child;
+
+  /// Colors for drawing the bars within the button.
   final Color color;
 
+  /// Creates a new instance.
   AnimatedPlayButton({
     Key key,
     this.child,
@@ -135,5 +117,36 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
         Timer.periodic(Duration(milliseconds: _kAnimationDuration), (timer) {
       _setUpAnimation();
     });
+  }
+}
+
+class _Painter extends CustomPainter {
+  final List<double> values;
+  final Color color;
+
+  _Painter({@required this.values, this.color = Colors.black});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (this.values == null || this.values.length == 0) {
+      return;
+    }
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    final double interval = size.width / (values.length + 1);
+    for (int index = 0; index < this.values.length; index++) {
+      final value = values[index];
+      final x = interval * (index + 1);
+      final yBegin = size.height;
+      final yEnd = size.height - (size.height * value);
+      canvas.drawLine(Offset(x, yBegin), Offset(x, yEnd), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
