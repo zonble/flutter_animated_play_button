@@ -55,12 +55,13 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: 20, minHeight: 20),
       child: Material(
+        color: Colors.transparent,
         child: InkWell(
           onTap: () {},
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: CustomPaint(
-              painter: _Painter(
+              painter: _BarPainter(
                 values: values,
                 color: widget.color,
               ),
@@ -113,18 +114,18 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
   @override
   void initState() {
     super.initState();
-    _timer =
-        Timer.periodic(Duration(milliseconds: _kAnimationDuration), (timer) {
-      _setUpAnimation();
-    });
+    _timer = Timer.periodic(
+      Duration(milliseconds: _kAnimationDuration),
+      (timer) => _setUpAnimation(),
+    );
   }
 }
 
-class _Painter extends CustomPainter {
+class _BarPainter extends CustomPainter {
   final List<double> values;
   final Color color;
 
-  _Painter({@required this.values, this.color = Colors.black});
+  _BarPainter({@required this.values, this.color = Colors.black});
 
   @override
   void paint(Canvas canvas, Size size) {
