@@ -28,7 +28,7 @@ class AnimatedPlayButton extends StatefulWidget {
   /// Creates a new instance.
   AnimatedPlayButton({
     Key key,
-    @required this.child,
+    this.child,
     this.onPressed,
     this.color,
     this.stopped = false,
