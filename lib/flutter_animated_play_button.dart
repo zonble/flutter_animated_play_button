@@ -13,21 +13,25 @@ import 'package:flutter/material.dart';
 /// To use the widget, just creates an instance of it and place it into your
 /// Widget tree. You can specify its [child] or [color] as well.
 class AnimatedPlayButton extends StatefulWidget {
-  /// Handles tap events on the button.
-  final VoidCallback onPressed;
-
   /// Child of the button.
   final Widget child;
+
+  /// Handles tap events on the button.
+  final VoidCallback onPressed;
 
   /// Colors for drawing the bars within the button.
   final Color color;
 
+  /// If the button has stopped animating.
+  final bool stopped;
+
   /// Creates a new instance.
   AnimatedPlayButton({
     Key key,
-    this.child,
+    @required this.child,
     this.onPressed,
     this.color,
+    this.stopped = false,
   }) : super(key: key);
 
   @override
@@ -73,7 +77,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
     );
   }
 
-  void _setUpAnimation() {
+  void _setUpAnimation(bool toStop) {
     List<double> animationBeginValues = () {
       if (_animations != null) {
         return List<double>.from(_animations.map((x) => x.value));
@@ -94,9 +98,10 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
     } else {
       _animationControllers.forEach((controller) => controller.value = 0.0);
     }
+
     final newAnimations = List.generate(_kBarCount, (index) {
       double begin = animationBeginValues[index];
-      double end = Random().nextDouble();
+      double end = toStop ? 0.1 : Random().nextDouble();
       return Tween(begin: begin, end: end)
           .animate(_animationControllers[index]);
     });
@@ -107,16 +112,28 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
   @override
   void dispose() {
     _animationControllers?.forEach((controller) => controller.dispose());
+    _animationControllers = null;
     _timer.cancel();
+    _timer = null;
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+
+    if (widget.stopped) {
+      if (_timer != null) {
+        _timer.cancel();
+        _timer = null;
+      }
+      _setUpAnimation(true);
+      return;
+    }
+
     _timer = Timer.periodic(
       Duration(milliseconds: _kAnimationDuration),
-      (timer) => _setUpAnimation(),
+      (timer) => _setUpAnimation(false),
     );
   }
 }
