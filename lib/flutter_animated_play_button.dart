@@ -50,8 +50,19 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
 
   @override
   Widget build(BuildContext context) {
-    if (_animations == null) {
-      return Container(child: widget.child);
+    if (widget.stopped) {
+      if (_timer != null) {
+        _timer.cancel();
+        _timer = null;
+      }
+      _setUpAnimation(true);
+    } else {
+      if (_timer == null) {
+        _timer = Timer.periodic(
+          Duration(milliseconds: _kAnimationDuration),
+          (timer) => _setUpAnimation(false),
+        );
+      }
     }
 
     var values =
@@ -101,7 +112,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
 
     final newAnimations = List.generate(_kBarCount, (index) {
       double begin = animationBeginValues[index];
-      double end = toStop ? 0.1 : Random().nextDouble();
+      double end = toStop ? 0.2 : Random().nextDouble();
       return Tween(begin: begin, end: end)
           .animate(_animationControllers[index]);
     });
@@ -116,25 +127,6 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
     _timer.cancel();
     _timer = null;
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.stopped) {
-      if (_timer != null) {
-        _timer.cancel();
-        _timer = null;
-      }
-      _setUpAnimation(true);
-      return;
-    }
-
-    _timer = Timer.periodic(
-      Duration(milliseconds: _kAnimationDuration),
-      (timer) => _setUpAnimation(false),
-    );
   }
 }
 
