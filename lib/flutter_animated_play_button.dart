@@ -65,6 +65,10 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
       }
     }
 
+    if (_animations == null) {
+      return Container();
+    }
+
     var values =
         List<double>.from(_animations.map((animation) => animation.value));
     return ConstrainedBox(
