@@ -128,7 +128,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
   void dispose() {
     _animationControllers?.forEach((controller) => controller.dispose());
     _animationControllers = null;
-    _timer.cancel();
+    _timer?.cancel();
     _timer = null;
     super.dispose();
   }
