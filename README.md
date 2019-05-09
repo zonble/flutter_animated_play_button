@@ -8,6 +8,8 @@ represent we are playing an item such as a track or a playlist.
 To use the widget, just creates an instance of it and place it into your Widget
 tree. You can specify its `child` or `color` as well.
 
+The package is derived from the app "KKBOX Kids".
+
 ## Installation
 
 Add the following line to your `pubspec.yaml` file of your Flutter project:
@@ -18,4 +20,4 @@ dependencies:
     git: "git@gitlab.kkinternal.com:xddd/flutter_animated_play_button.git"
 ```
 
-Then call flutter packages get.
+Then call `flutter packages get`.
