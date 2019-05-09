@@ -1,8 +1,8 @@
 name: flutter_animated_play_button
 description: A new Flutter package.
 version: 0.0.2
-author:
-homepage:
+author: Weizhong Yang <zonble@gmail.com>
+homepage: https://github.com/zonble/flutter_animated_play_button
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
