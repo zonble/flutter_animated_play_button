@@ -10,14 +10,3 @@ tree. You can specify its `child` or `color` as well.
 
 The package is derived from the app "KKBOX Kids".
 
-## Installation
-
-Add the following line to your `pubspec.yaml` file of your Flutter project:
-
-```yaml
-dependencies:
-  flutter_animated_play_button:
-    git: "git@gitlab.kkinternal.com:xddd/flutter_animated_play_button.git"
-```
-
-Then call `flutter packages get`.
