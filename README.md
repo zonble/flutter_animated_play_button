@@ -1,9 +1,16 @@
-AnimatedPlayButton is a Flutter widget presenting several animating bars, which
+The package contains only a Flutter widget, AnimatedPlayButton.
+
+AnimatedPlayButton is a widget presenting several animating bars, which
 represent we are playing an item such as a track or a playlist.
+
+It looks like:
 
 ![button.gif](button.gif)
 
 To use the widget, just creates an instance of it and place it into your Widget
 tree. You can specify its `child` or `color` as well.
+
+You can ask the widget to start or stop animating anytime when you build the
+widget.
 
 The package is derived from the app "KKBOX Kids".
