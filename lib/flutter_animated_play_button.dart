@@ -44,8 +44,7 @@ const _kAnimationDuration = 300;
 class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
     with TickerProviderStateMixin {
   Timer _timer;
-
-  List<AnimationController> _animationControllers;
+  AnimationController _animationController;
   List<Animation> _animations;
 
   @override
@@ -93,41 +92,34 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
   }
 
   void _setUpAnimation(bool toStop) {
-    List<double> animationBeginValues = () {
-      if (_animations != null) {
-        return List<double>.from(_animations.map((x) => x.value));
-      }
-      return List<double>.generate(
-          _kBarCount, (index) => Random().nextDouble());
-    }();
+    List<double> animationBeginValues = _animations != null
+        ? List<double>.from(_animations.map((x) => x.value))
+        : List<double>.generate(_kBarCount, (index) => Random().nextDouble());
 
-    if (_animationControllers == null) {
-      _animationControllers = List.generate(_kBarCount, (index) {
-        return AnimationController(
-          vsync: this,
-          duration: Duration(milliseconds: _kAnimationDuration),
-          value: 0.0,
-        );
-      });
-      _animationControllers[0].addListener(() => setState(() {}));
+    if (_animationController == null) {
+      _animationController = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: _kAnimationDuration),
+        value: 0.0,
+      );
+      _animationController.addListener(() => setState(() {}));
     } else {
-      _animationControllers.forEach((controller) => controller.value = 0.0);
+      _animationController.value = 0.0;
     }
 
     final newAnimations = List.generate(_kBarCount, (index) {
       double begin = animationBeginValues[index];
       double end = toStop ? 0.2 : Random().nextDouble();
-      return Tween(begin: begin, end: end)
-          .animate(_animationControllers[index]);
+      return Tween(begin: begin, end: end).animate(_animationController);
     });
     _animations = newAnimations;
-    _animationControllers.forEach((controller) => controller.forward());
+    _animationController.forward();
   }
 
   @override
   void dispose() {
-    _animationControllers?.forEach((controller) => controller.dispose());
-    _animationControllers = null;
+    _animationController.dispose();
+    _animationController = null;
     _timer?.cancel();
     _timer = null;
     super.dispose();
