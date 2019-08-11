@@ -1,3 +1,7 @@
+## 0.1.3
+
+Reduces the count of animation controllers.
+
 ## 0.1.2
 
 Updates license.
