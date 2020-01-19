@@ -1,3 +1,7 @@
+## 0.1.3+2
+
+Updates the examples.
+
 ## 0.1.3
 
 Reduces the count of animation controllers.
