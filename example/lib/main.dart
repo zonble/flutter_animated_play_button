@@ -59,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      Divider(),
                       ListTile(
                         title: Text(
                             'There is a paused state. It implies your app pauses playing.'),
@@ -73,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      Divider(),
                       ListTile(
                         title: Text('You can change the color of the bars.'),
                         leading: Container(
