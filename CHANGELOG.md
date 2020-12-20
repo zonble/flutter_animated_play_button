@@ -1,3 +1,7 @@
+## 0.2.0-nullsafety.0
+
+Supports null safety.
+
 ## 0.1.3+2
 
 Updates the examples.
