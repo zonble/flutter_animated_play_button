@@ -1,7 +1,6 @@
 library flutter_animated_play_button;
 
 /// Wraps [AnimatedPlayButton].
-
 import 'dart:async';
 import 'dart:math';
 
@@ -27,10 +26,10 @@ class AnimatedPlayButton extends StatefulWidget {
 
   /// Creates a new instance.
   AnimatedPlayButton({
-    Key key,
-    this.child,
-    this.onPressed,
-    this.color,
+    Key? key,
+    required this.child,
+    required this.onPressed,
+    required this.color,
     this.stopped = false,
   }) : super(key: key);
 
@@ -43,17 +42,15 @@ const _kAnimationDuration = 300;
 
 class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
     with TickerProviderStateMixin {
-  Timer _timer;
-  AnimationController _animationController;
-  List<Animation> _animations;
+  Timer? _timer;
+  AnimationController? _animationController;
+  List<Animation>? _animations;
 
   @override
   Widget build(BuildContext context) {
     if (widget.stopped) {
-      if (_timer != null) {
-        _timer.cancel();
-        _timer = null;
-      }
+      _timer?.cancel();
+      _timer = null;
       _setUpAnimation(true);
     } else {
       if (_timer == null) {
@@ -64,36 +61,26 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
       }
     }
 
-    if (_animations == null) {
-      return Container();
-    }
+    if (_animations == null) return Container();
 
     var values =
-        List<double>.from(_animations.map((animation) => animation.value));
+        List<double>.from(_animations!.map((animation) => animation.value));
     return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 20, minHeight: 20),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: CustomPaint(
-              painter: _BarPainter(
-                values: values,
-                color: widget.color,
-              ),
-              child: widget.child,
-            ),
-          ),
-        ),
-      ),
-    );
+        constraints: BoxConstraints(minWidth: 20, minHeight: 20),
+        child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+                child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: CustomPaint(
+                      painter: _BarPainter(values: values, color: widget.color),
+                      child: widget.child,
+                    )))));
   }
 
   void _setUpAnimation(bool toStop) {
     List<double> animationBeginValues = _animations != null
-        ? List<double>.from(_animations.map((x) => x.value))
+        ? List<double>.from(_animations!.map((x) => x.value))
         : List<double>.generate(_kBarCount, (index) => Random().nextDouble());
 
     if (_animationController == null) {
@@ -102,23 +89,23 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
         duration: Duration(milliseconds: _kAnimationDuration),
         value: 0.0,
       );
-      _animationController.addListener(() => setState(() {}));
+      _animationController?.addListener(() => setState(() {}));
     } else {
-      _animationController.value = 0.0;
+      _animationController?.value = 0.0;
     }
 
     final newAnimations = List.generate(_kBarCount, (index) {
       double begin = animationBeginValues[index];
       double end = toStop ? 0.2 : Random().nextDouble();
-      return Tween(begin: begin, end: end).animate(_animationController);
+      return Tween(begin: begin, end: end).animate(_animationController!);
     });
     _animations = newAnimations;
-    _animationController.forward();
+    _animationController?.forward();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController?.dispose();
     _animationController = null;
     _timer?.cancel();
     _timer = null;
@@ -128,21 +115,21 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
 
 class _BarPainter extends CustomPainter {
   final List<double> values;
-  final Color color;
+  final Color? color;
 
-  _BarPainter({@required this.values, this.color = Colors.black});
+  _BarPainter({required this.values, this.color = Colors.black});
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (this.values == null || this.values.length == 0) {
+    if (values.length == 0) {
       return;
     }
     final paint = Paint()
-      ..color = color
+      ..color = color!
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     final double interval = size.width / (values.length + 1);
-    for (int index = 0; index < this.values.length; index++) {
+    for (int index = 0; index < values.length; index++) {
       final value = values[index];
       final x = interval * (index + 1);
       final yBegin = size.height;
@@ -152,7 +139,5 @@ class _BarPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
