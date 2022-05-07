@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 /// Widget tree. You can specify its [child] or [color] as well.
 class AnimatedPlayButton extends StatefulWidget {
   /// Child of the button.
-  final Widget child;
+  final Widget? child;
 
   /// Handles tap events on the button.
   final VoidCallback onPressed;
@@ -27,7 +27,7 @@ class AnimatedPlayButton extends StatefulWidget {
   /// Creates a new instance.
   AnimatedPlayButton({
     Key? key,
-    required this.child,
+    this.child,
     required this.onPressed,
     required this.color,
     this.stopped = false,

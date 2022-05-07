@@ -120,13 +120,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                               ),
                                             ),
                                             SizedBox(width: 10),
-                                            RaisedButton(
+                                            ElevatedButton(
                                               child: Text('Start Animatiiong'),
                                               onPressed: () => setState(
                                                   () => _stopped = false),
                                             ),
                                             SizedBox(width: 10),
-                                            RaisedButton(
+                                            ElevatedButton(
                                               child: Text('Stop Animatiiong'),
                                               onPressed: () => setState(
                                                   () => _stopped = true),
