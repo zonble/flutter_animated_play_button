@@ -13,3 +13,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+screenshots:
+  - description: 'An animated button.'
+    path: button.gif
+ 
