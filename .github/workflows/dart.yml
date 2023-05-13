@@ -30,9 +30,7 @@ jobs:
       - name: Build Web
         run: flutter build web
         working-directory: ./example
-      - name: Publish generated content to GitHub Pages
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          dir: example/build/web
-          branch: gh-pages
-          token: ${{ secrets.ACCESS_TOKEN }}
+          folder: build # The folder the action should deploy.
