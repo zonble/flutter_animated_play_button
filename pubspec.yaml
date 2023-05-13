@@ -1,10 +1,10 @@
 name: flutter_animated_play_button
 description: AnimatedPlayButton is a Flutter widget presenting several animating bars, which represent we are playing an item such as a track or a playlist..
-version: 0.2.1
+version: 0.3.0
 homepage: https://github.com/zonble/flutter_animated_play_button
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -15,6 +15,5 @@ dev_dependencies:
     sdk: flutter
 
 screenshots:
-  - description: 'An animated button.'
+  - description: "An animated button."
     path: button.gif
- 

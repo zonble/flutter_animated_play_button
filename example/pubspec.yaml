@@ -4,14 +4,14 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.5
   flutter_animated_play_button:
-    path: '../.'
+    path: "../."
 
 dev_dependencies:
   flutter_test:
